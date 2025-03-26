@@ -26,6 +26,15 @@ from core.model_handler.face_detection.FaceDetModelHandler import FaceDetModelHa
 from core.model_loader.face_alignment.FaceAlignModelLoader import FaceAlignModelLoader
 from core.model_handler.face_alignment.FaceAlignModelHandler import FaceAlignModelHandler
 
+import torch
+from models.network_def.retinaface_def import RetinaFace
+from models.network_def.mobilev3_pfld import PFLDInference
+from torch.nn.parallel import DataParallel
+
+# Dodanie klas do dozwolonych globali
+torch.serialization.add_safe_globals([RetinaFace, PFLDInference, DataParallel])
+
+
 with open('config/model_conf.yaml') as f:
     model_conf = yaml.load(f,Loader=yaml.FullLoader)
 

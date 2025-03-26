@@ -8,6 +8,12 @@ logging.config.fileConfig("config/logging.conf")
 logger = logging.getLogger('sdk')
 
 import torch
+from models.network_def.retinaface_def import RetinaFace
+from models.network_def.mobilev3_pfld import PFLDInference
+from torch.nn.parallel import DataParallel
+
+# Dodanie klas do dozwolonych globali
+torch.serialization.add_safe_globals([RetinaFace, PFLDInference, DataParallel])
 
 from core.model_loader.BaseModelLoader import BaseModelLoader
 
@@ -20,7 +26,7 @@ class FaceAlignModelLoader(BaseModelLoader):
         
     def load_model(self):
         try:
-            model = torch.load(self.cfg['model_file_path'])
+            model = torch.load(self.cfg['model_file_path'], weights_only=False, map_location=torch.device('cpu'))
         except Exception as e:
             logger.error('The model failed to load, please check the model path: %s!'
                          % self.cfg['model_file_path'])

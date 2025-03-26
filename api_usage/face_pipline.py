@@ -24,7 +24,7 @@ from core.model_loader.face_recognition.FaceRecModelLoader import FaceRecModelLo
 from core.model_handler.face_recognition.FaceRecModelHandler import FaceRecModelHandler
 
 with open('config/model_conf.yaml') as f:
-    model_conf = yaml.load(f)
+    model_conf = yaml.load(f, Loader=yaml.SafeLoader)
 
 if __name__ == '__main__':
     # common setting for all models, need not modify.
