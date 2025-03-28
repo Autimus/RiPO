@@ -8,6 +8,8 @@ logging.config.fileConfig("config/logging.conf")
 logger = logging.getLogger('sdk')
 
 import torch
+torch.nn.Module.dump_patches = True
+
 from models.network_def.retinaface_def import RetinaFace
 from models.network_def.mobilev3_pfld import PFLDInference
 from torch.nn.parallel import DataParallel
@@ -19,8 +21,9 @@ from core.model_loader.BaseModelLoader import BaseModelLoader
 
 class FaceAlignModelLoader(BaseModelLoader):
     def __init__(self, model_path, model_category, model_name, meta_file='model_meta.json'):
-        logger.info('Start to analyze the face landmark model, model path: %s, model category: %s，model name: %s' %
-                    (model_path, model_category, model_name))
+        logger.info('Start to analyze the face landmark model, model path: %s, model category: %s, model name: %s',
+                    model_path, model_category, model_name)
+
         super().__init__(model_path, model_category, model_name, meta_file)
         self.cfg['img_size'] = self.meta_conf['input_width']
         

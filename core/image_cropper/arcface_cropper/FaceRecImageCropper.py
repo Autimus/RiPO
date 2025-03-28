@@ -11,6 +11,13 @@ import cv2
 import numpy as np
 from skimage import transform as trans
 
+from models.network_def.retinaface_def import RetinaFace
+import torch.serialization
+
+torch.serialization.add_safe_globals([RetinaFace])
+model = torch.load('model_file_path.pth')
+
+
 from core.image_cropper.BaseImageCropper import BaseImageCropper
 from utils.lms_trans import lms106_2_lms5, lms25_2_lms5
 

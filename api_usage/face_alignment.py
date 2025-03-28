@@ -3,11 +3,15 @@
 @date: 20201023
 @contact: jun21wangustc@gmail.com 
 """
+
 import sys
 sys.path.append('')
 import logging.config
-logging.config.fileConfig("config/logging.conf")
+logging.config.fileConfig("config\\logging.conf")
 logger = logging.getLogger('api')
+
+
+
 
 import yaml
 import cv2
@@ -15,10 +19,11 @@ import numpy as np
 from core.model_loader.face_alignment.FaceAlignModelLoader import FaceAlignModelLoader
 from core.model_handler.face_alignment.FaceAlignModelHandler import FaceAlignModelHandler
 
-with open('config/model_conf.yaml') as f:
+with open('config/model_conf.yaml','r',encoding='utf-8') as f:
     model_conf = yaml.load(f, Loader=yaml.SafeLoader)
 
 if __name__ == '__main__':
+
     # common setting for all model, need not modify.
     model_path = 'models'
 
@@ -38,14 +43,13 @@ if __name__ == '__main__':
     else:
         logger.info('Successfully parsed the model configuration file model_meta.json!')
 
-    try:
         model, cfg = faceAlignModelLoader.load_model()
-    except Exception as e:
-        logger.error('Model loading failed!')
-        logger.error(e)
-        sys.exit(-1)
-    else:
-        logger.info('Successfully loaded the face landmark model!')
+    # except Exception as e:
+    #     logger.error('Model loading failed!')
+    #     logger.error(e)
+    #     sys.exit(-1)
+    # else:
+    #     logger.info('Successfully loaded the face landmark model!')
 
     faceAlignModelHandler = FaceAlignModelHandler(model, 'cuda:0', cfg)
 
