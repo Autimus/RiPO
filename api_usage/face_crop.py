@@ -12,10 +12,12 @@ import logging.config
 logging.config.fileConfig("config/logging.conf")
 logger = logging.getLogger('api')
 import cv2
+import torch
 
 from core.image_cropper.arcface_cropper.FaceRecImageCropper import FaceRecImageCropper
 
 if __name__ == '__main__':
+    torch.nn.Module.dump_patches = True
     image_path = 'api_usage/test_images/test1.jpg'
     image_info_file = 'api_usage/test_images/test1_landmark_res0.txt'
     line = open(image_info_file).readline().strip()

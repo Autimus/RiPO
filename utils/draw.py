@@ -1,12 +1,9 @@
-# based on:
-# https://github.com/FacePerceiver/facer/blob/main/facer/draw.py
 from typing import Dict, List
 import torch
 import colorsys
 import random
 import numpy as np
-from skimage.draw import line_aa, circle_perimeter_aa
-
+from skimage.draw import circle_perimeter_aa
 
 def _gen_random_colors(N, bright=True):
     brightness = 1.0 if bright else 0.7
@@ -14,7 +11,6 @@ def _gen_random_colors(N, bright=True):
     colors = list(map(lambda c: colorsys.hsv_to_rgb(*c), hsv))
     random.shuffle(colors)
     return colors
-
 
 _static_label_colors = [
     np.array((1.0, 1.0, 1.0), np.float32),
@@ -86,9 +82,10 @@ def _blend_labels(image, labels, label_names_dict=None,
             [labels.shape[0], labels.shape[1], 3], np.float32)
         alpha = 1.0
     else:
-        orig_image = image / np.max(image)
+        orig_image = image / image.max()
         image = orig_image * (1.0 - default_alpha)
         alpha = default_alpha
+
     for i in range(1, np.max(labels) + 1):
         image += alpha * \
             np.tile(
@@ -130,9 +127,10 @@ def _draw_hwc(image: torch.Tensor, data: Dict[str, torch.Tensor]):
                          255, seg_labels,
                          label_names_dict=label_names) * 255).astype(dtype)
 
-    return torch.from_numpy(image).cuda()
+    return torch.from_numpy(image).cpu()
 
 
 def draw_bchw(images, data):
-    image = _draw_hwc(images, data).permute(2, 0, 1).unsqueeze(0)
+    image = _draw_hwc(images, data)
+    image = torch.permute(image,(2, 0, 1)).unsqueeze(0)
     return image

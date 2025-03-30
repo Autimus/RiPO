@@ -30,7 +30,7 @@ class FaceRecModelHandler(BaseModelHandler):
         self.std = self.cfg['std']
         self.input_height = self.cfg['input_height']
         self.input_width = self.cfg['input_width']
-        
+
     def inference_on_image(self, image):
         """Get the inference of the image.
 
@@ -42,7 +42,13 @@ class FaceRecModelHandler(BaseModelHandler):
         except Exception as e:
             raise e
         image = torch.unsqueeze(image, 0)
-        image = image.to(self.device)
+        image = image.to("cpu").cpu()
+        self.model = self.model.to("cpu")
+        self.device = torch.device("cpu")  # Upewnij się, że device też jest ustawiony na CPU
+        if isinstance(self.model, torch.nn.DataParallel):
+            self.model = self.model.module  # Usunięcie DataParallel
+        self.model.to("cpu")
+
         with torch.no_grad():
             feature = self.model(image).cpu().numpy()
         feature = np.squeeze(feature)
@@ -53,7 +59,8 @@ class FaceRecModelHandler(BaseModelHandler):
 
         Returns:
            A torch tensor, the input after preprecess, shape: (3, 112, 112).
-        """       
+        """
+
         if not isinstance(image, np.ndarray):
             logger.error('The input should be the ndarray read by cv2!')
             raise InputError()

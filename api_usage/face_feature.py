@@ -12,10 +12,11 @@ logger = logging.getLogger('api')
 import yaml
 import cv2
 import numpy as np
-
+import torch
 from core.model_loader.face_recognition.FaceRecModelLoader import FaceRecModelLoader
 from core.model_handler.face_recognition.FaceRecModelHandler import FaceRecModelHandler
 
+torch.nn.Module.dump_patches = True
 with open('config/model_conf.yaml') as f:
     model_conf = yaml.load(f, Loader=yaml.SafeLoader)
     
@@ -23,6 +24,7 @@ if __name__ == '__main__':
     # common setting for all model, need not modify.
     model_path = 'models'
 
+    torch.nn.Module.dump_patches = True
     # model setting, modified along with model
     scene = 'non-mask'
     model_category = 'face_recognition'
@@ -51,7 +53,7 @@ if __name__ == '__main__':
     # read image
     image_path = 'api_usage/test_images/test1_cropped.jpg'
     image = cv2.imread(image_path)
-    faceRecModelHandler = FaceRecModelHandler(model, 'cuda:0', cfg)
+    faceRecModelHandler = FaceRecModelHandler(model, 'cpu', cfg)
 
     try:
         feature = faceRecModelHandler.inference_on_image(image)

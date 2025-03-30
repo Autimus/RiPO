@@ -15,6 +15,7 @@ logger = logging.getLogger('api')
 import yaml
 import cv2
 import numpy as np
+import torch
 from core.model_loader.face_detection.FaceDetModelLoader import FaceDetModelLoader
 from core.model_handler.face_detection.FaceDetModelHandler import FaceDetModelHandler
 from core.model_loader.face_alignment.FaceAlignModelLoader import FaceAlignModelLoader
@@ -30,6 +31,7 @@ if __name__ == '__main__':
     # common setting for all models, need not modify.
     model_path = 'models'
 
+    torch.nn.Module.dump_patches = True
     # face detection model setting.
     scene = 'non-mask'
     model_category = 'face_detection'
@@ -38,7 +40,7 @@ if __name__ == '__main__':
     try:
         faceDetModelLoader = FaceDetModelLoader(model_path, model_category, model_name)
         model, cfg = faceDetModelLoader.load_model()
-        faceDetModelHandler = FaceDetModelHandler(model, 'cuda:0', cfg)
+        faceDetModelHandler = FaceDetModelHandler(model, 'cpu', cfg)
     except Exception as e:
         logger.error('Falied to load face detection Model.')
         logger.error(e)
@@ -53,7 +55,7 @@ if __name__ == '__main__':
     try:
         faceAlignModelLoader = FaceAlignModelLoader(model_path, model_category, model_name)
         model, cfg = faceAlignModelLoader.load_model()
-        faceAlignModelHandler = FaceAlignModelHandler(model, 'cuda:0', cfg)
+        faceAlignModelHandler = FaceAlignModelHandler(model, 'cpu', cfg)
     except Exception as e:
         logger.error('Failed to load face landmark model.')
         logger.error(e)
@@ -68,7 +70,7 @@ if __name__ == '__main__':
     try:
         faceRecModelLoader = FaceRecModelLoader(model_path, model_category, model_name)
         model, cfg = faceRecModelLoader.load_model()
-        faceRecModelHandler = FaceRecModelHandler(model, 'cuda:0', cfg)
+        faceRecModelHandler = FaceRecModelHandler(model, 'cpu', cfg)
     except Exception as e:
         logger.error('Failed to load face recognition model.')
         logger.error(e)
@@ -79,6 +81,7 @@ if __name__ == '__main__':
     # read image and get face features.
     image_path = 'api_usage/test_images/test1.jpg'
     image = cv2.imread(image_path, cv2.IMREAD_COLOR)
+
     face_cropper = FaceRecImageCropper()
     try:
         dets = faceDetModelHandler.inference_on_image(image)
