@@ -12,6 +12,7 @@
     <option name="namespacePackageFolders">
       <list>
         <option value="$MODULE_DIR$/api_usage" />
+        <option value="$MODULE_DIR$/main" />
       </list>
     </option>
   </component>
