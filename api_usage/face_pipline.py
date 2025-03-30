@@ -109,6 +109,7 @@ def runD(image_path = 'main/tymczasowe', resoult_folder= 'main/wyniki/dopasowani
 
     # Konwersja do listy
     result = list(best_values.values())
+    list.sort(result,key=lambda xx: xx[0])
     print(result)
     with open(resoult_folder, "w") as fd:
         fd.write("TwarzZeZdjecia\tDopasowanie\tOsobaZBazy\n")
