@@ -27,7 +27,7 @@ from core.model_loader.face_recognition.FaceRecModelLoader import FaceRecModelLo
 from core.model_handler.face_recognition.FaceRecModelHandler import FaceRecModelHandler
 
 
-def runD(image_path = 'main/tymczasowe', resoult_folder= 'main/wyniki/dopasowania.txt'):
+def runD(resoult_path = 'main/tymczasowe', resoult_file= 'main/wyniki/dopasowania.txt'):
     with open('config/model_conf.yaml') as f:
         model_conf = yaml.load(f, Loader=yaml.SafeLoader)
     # common setting for all models, need not modify.
@@ -71,9 +71,9 @@ def runD(image_path = 'main/tymczasowe', resoult_folder= 'main/wyniki/dopasowani
         logger.error(e)
         sys.exit(-1)
 
-    # TODO: tu zmienilem
+    #  tu zmienilem
     wynik = []
-    for image_path in glob.glob(str(image_path)+"/*porownanie*.jpg"):
+    for image_path in glob.glob(str(resoult_path)+"/*porownanie*.jpg"):
         numbers = re.findall(r"\d+\.\d+|\d+", image_path)
         # read image and get face features.
         image = cv2.imread(image_path, cv2.IMREAD_COLOR)
@@ -111,7 +111,7 @@ def runD(image_path = 'main/tymczasowe', resoult_folder= 'main/wyniki/dopasowani
     result = list(best_values.values())
     list.sort(result,key=lambda xx: xx[0])
     print(result)
-    with open(resoult_folder, "w") as fd:
+    with open(resoult_file, "w") as fd:
         fd.write("TwarzZeZdjecia\tDopasowanie\tOsobaZBazy\n")
         for line in result:
             fd.write("\t".join(map(str,line))+"\n")

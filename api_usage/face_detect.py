@@ -18,7 +18,7 @@ from core.model_handler.face_detection.FaceDetModelHandler import FaceDetModelHa
 
 
 
-def runA(resoult_path = 'main/tymczasowe',image_path = 'main/tymczasowe/obraz.jpg'):
+def runA(resoult_path = 'main/tymczasowe',image_path = 'main/tymczasowe/obraz.jpg', resoult_file='main/wyniki/okwadratowane.jpg'):
 
     with open('config/model_conf.yaml') as f:
         model_conf = yaml.load(f, Loader=yaml.SafeLoader)
@@ -61,7 +61,7 @@ def runA(resoult_path = 'main/tymczasowe',image_path = 'main/tymczasowe/obraz.jp
        sys.exit(-1)
 
     # gen result
-    save_path_img = f'main/wyniki/okwadratowane.jpg'
+    save_path_img = resoult_file
     save_path_txt = f'{resoult_path}/lista_twarzy.txt'
 
     bboxs = dets
