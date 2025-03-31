@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Odtwarzacz Wideo</title>
+</head>
+
+<body>
+
+
+<!-- Krok pierwszy -->
+<div id="step1">
+    <h1>Krok 1: Wybierz plik MP4</h1>
+    <form id="fileForm">
+        <input type="file" id="videoInput" accept="video/quicktime">
+        <button type="button" id="acceptVideo" disabled>Akceptuj</button>
+    </form>
+    <br>
+    <hr>
+</div>
+
+
+<!-- Krok drugi -->
+<div id="step2" style="display: none;">
+    <h1>Krok 2: Wybierz folder z bazą zdjęć osób, których twarze chcesz znaleźć</h1>
+    <form id="photosForm">
+        <input type="file" id="photosInput" webkitdirectory>
+        <button type="button" id="acceptPhotos" disabled>Akceptuj</button>
+    </form>
+    <br>
+    <hr>
+</div>
+
+
+<!-- Krok trzeci -->
+<div id="step3" style="display: none;">
+
+    <h1>Krok 3: Wybierz klatkę do analizy</h1>
+    <video id="videoPlayer" controls width="600">
+        <source id="videoSource" src="">
+        Twoja przeglądarka nie obsługuje tagu wideo.
+    </video>
+    <br>
+    <br>
+
+    <label for="slider">Ustaw wartość, od której twarze będą wykrywane jako rozpoznane: </label>
+    <input type="range" id="slider" min="0" max="100" value="50" step="1">
+    <span id="sliderValue">50%</span>
+    <br>
+    <br>
+
+    <button type="button" id="analyse" disabled>Analizuj wybraną klatkę wideo</button>
+
+</div>
+
+<!-- Krok czwarty -->
+<div id="step4" style="display: none;">
+    <h1>Wynik analizy</h1>
+    <p id="analysisMessage">Analiza w toku...</p>
+    <img id="analysedImage" src="" alt="Wynik analizy" style="max-width: 600px; display: none;">
+</div>
+
+<script>
+
+    const step1 = document.getElementById('step1');
+    const videoInput = step1.querySelector('#videoInput');
+    const acceptVideo = document.getElementById('acceptVideo');
+
+    const step2 = document.getElementById('step2');
+    const photosInput = document.getElementById('photosInput');
+    const acceptPhotos = document.getElementById('acceptPhotos');
+
+    const step3 = document.getElementById('step3');
+    const videoPlayer = document.getElementById('videoPlayer');
+    const videoSource = document.getElementById('videoSource');
+    const slider = document.getElementById('slider');
+    const sliderValue = document.getElementById('sliderValue');
+
+    const analyse = document.getElementById('analyse');
+
+    // Wybieranie wideo
+    videoInput.addEventListener('change', function() {
+        if (videoInput.files.length > 0) {
+            acceptVideo.disabled = false;
+        }
+    });
+
+    // Zaakceptowanie wideo
+    acceptVideo.addEventListener('click', function() {
+        const file = videoInput.files[0];
+        if (file) {
+            step2.style.display = 'block';
+            acceptVideo.disabled = true;
+        }
+    });
+
+    // Wybieranie folderu zdjęć
+    photosInput.addEventListener('change', function() {
+        if (photosInput.files.length > 0) {
+            acceptPhotos.disabled = false;
+        }
+    });
+
+    // Zaakceptowanie zdjęć
+    acceptPhotos.addEventListener('click', function() {
+        const file = videoInput.files[0];
+        if (file) {
+            step3.style.display = 'block';
+            const url = URL.createObjectURL(file);
+            console.log(url);
+            videoSource.src = url;
+            videoPlayer.load();
+        }
+    });
+
+    // Wybranie klatki
+    videoPlayer.addEventListener('pause', function() {
+        analyse.disabled = false;
+    });
+    videoPlayer.addEventListener('play', function() {
+        analyse.disabled = true;
+    });
+
+    // Aktualizacja suwaka
+    slider.addEventListener('input', function() {
+        sliderValue.textContent = `${slider.value}%`;
+    });
+
+    document.getElementById('analyse').addEventListener('click', function() {
+        const videoFile = document.getElementById('videoInput').files[0];
+        const frameNumber = videoPlayer.currentTime;
+        const photoFiles = document.getElementById('photosInput').files; // Pobierz wszystkie pliki zdjęć
+
+        const formData = new FormData();
+        formData.append('video', videoFile);
+        formData.append('frame_number', frameNumber);
+        for (let i = 0; i < photoFiles.length; i++) {
+            formData.append('photos', photoFiles[i]);  // Każdy plik dodany pod kluczem 'photos'
+        }
+
+        // Przesyłanie danych do serwera
+        fetch('/analyse_frame', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Wynik analizy:', data);
+                if (data.error) {
+                    document.getElementById('analysisMessage').textContent = `Błąd: ${data.error}`;
+                } else {
+                    document.getElementById('analysisMessage').textContent = 'Analiza zakończona pomyślnie!';
+                    document.getElementById('analysedImage').src = data.saved_image; // Ścieżka do obrazu
+                    document.getElementById('analysedImage').style.display = 'block';
+                    document.getElementById('step4').style.display = 'block';
+                }
+            })
+            .catch(error => {
+                console.error('Błąd podczas analizy:', error);
+                document.getElementById('analysisMessage').textContent = 'Wystąpił błąd podczas analizy.';
+            });
+    });
+
+</script>
+</body>
+</html>

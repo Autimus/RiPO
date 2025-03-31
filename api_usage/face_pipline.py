@@ -83,9 +83,9 @@ def runD(resoult_path = 'main/tymczasowe', resoult_file= 'main/wyniki/dopasowani
             dets = faceDetModelHandler.inference_on_image(image)
             face_nums = dets.shape[0]
             if face_nums != 2:
-                logger.info('Input image should contain two faces to compute similarity!')
+                continue
             feature_list = []
-            for i in range(face_nums):
+            for i in range(2):
                 landmarks = faceAlignModelHandler.inference_on_image(image, dets[i])
                 landmarks_list = []
                 for (x, y) in landmarks.astype(np.int32):
@@ -96,9 +96,7 @@ def runD(resoult_path = 'main/tymczasowe', resoult_file= 'main/wyniki/dopasowani
 
             wynik.append([int(numbers[0]),float(np.dot(feature_list[0], feature_list[1])),int(numbers[1])])
         except Exception as e:
-            logger.error('Pipeline failed!')
-            logger.error(e)
-            sys.exit(-1)
+            pass
     # Słownik przechowujący najlepsze wartości dla każdego numer1
     best_values = {}
 
