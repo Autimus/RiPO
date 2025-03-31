@@ -7,9 +7,9 @@ import os
 from api_usage.face_detect import runA
 from api_usage.face_aligment import runB
 from api_usage.face_crop import runC
-from filmy.wycinanie_z_filmu import stop_klatka
+from main.filmy.wycinanie_z_filmu import stop_klatka
 from api_usage.face_pipline import runD
-from baza_twarzy.wytnij_twarze import wytnijTwarzeBazy
+from main.baza_twarzy.wytnij_twarze import wytnijTwarzeBazy
 from PIL import Image
 import glob
 

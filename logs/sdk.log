@@ -1,26 +1,21 @@
-INFO 2025-03-31 23:22:49 FaceAlignModelLoader.py: 22] Start to analyze the face landmark model, model path: models, model category: face_alignment，model name: face_alignment_1.0
-INFO 2025-03-31 23:22:49 BaseModelLoader.py: 34] Successfully parsed the model configuration file meta.json!
-INFO 2025-03-31 23:22:49 FaceAlignModelLoader.py: 35] Successfully loaded the face landmark model!
-INFO 2025-03-31 23:22:49 FaceDetModelLoader.py: 16] Start to analyze the face detection model, model path: models, model category: face_detection，model name: face_detection_1.0
-INFO 2025-03-31 23:22:49 BaseModelLoader.py: 34] Successfully parsed the model configuration file meta.json!
-INFO 2025-03-31 23:22:50 FaceDetModelLoader.py: 34] Successfully loaded the face detection model!
-INFO 2025-03-31 23:22:51 FaceAlignModelLoader.py: 22] Start to analyze the face landmark model, model path: models, model category: face_alignment，model name: face_alignment_1.0
-INFO 2025-03-31 23:22:51 BaseModelLoader.py: 34] Successfully parsed the model configuration file meta.json!
-INFO 2025-03-31 23:22:51 FaceAlignModelLoader.py: 35] Successfully loaded the face landmark model!
-INFO 2025-03-31 23:22:51 FaceDetModelLoader.py: 16] Start to analyze the face detection model, model path: models, model category: face_detection，model name: face_detection_1.0
-INFO 2025-03-31 23:22:51 BaseModelLoader.py: 34] Successfully parsed the model configuration file meta.json!
-INFO 2025-03-31 23:22:51 FaceDetModelLoader.py: 34] Successfully loaded the face detection model!
-INFO 2025-03-31 23:22:53 FaceAlignModelLoader.py: 22] Start to analyze the face landmark model, model path: models, model category: face_alignment，model name: face_alignment_1.0
-INFO 2025-03-31 23:22:53 BaseModelLoader.py: 34] Successfully parsed the model configuration file meta.json!
-INFO 2025-03-31 23:22:53 FaceAlignModelLoader.py: 35] Successfully loaded the face landmark model!
-INFO 2025-03-31 23:22:53 FaceDetModelLoader.py: 16] Start to analyze the face detection model, model path: models, model category: face_detection，model name: face_detection_1.0
-INFO 2025-03-31 23:22:53 BaseModelLoader.py: 34] Successfully parsed the model configuration file meta.json!
-INFO 2025-03-31 23:22:53 FaceDetModelLoader.py: 34] Successfully loaded the face detection model!
-INFO 2025-03-31 23:22:53 FaceAlignModelLoader.py: 22] Start to analyze the face landmark model, model path: models, model category: face_alignment，model name: face_alignment_1.0
-INFO 2025-03-31 23:22:53 BaseModelLoader.py: 34] Successfully parsed the model configuration file meta.json!
-INFO 2025-03-31 23:22:53 FaceAlignModelLoader.py: 35] Successfully loaded the face landmark model!
-INFO 2025-03-31 23:22:53 FaceRecModelLoader.py: 16] Start to analyze the face recognition model, model path: models, model category: face_recognition，model name: face_recognition_1.0
-INFO 2025-03-31 23:22:53 BaseModelLoader.py: 34] Successfully parsed the model configuration file meta.json!
-INFO 2025-03-31 23:22:53 FaceRecModelLoader.py: 31] Successfully loaded the face recognition model!
-INFO 2025-03-31 23:22:55 _internal.py: 97] 127.0.0.1 - - [31/Mar/2025 23:22:55] "POST /analyse_frame HTTP/1.1" 200 -
-INFO 2025-03-31 23:22:55 _internal.py: 97] 127.0.0.1 - - [31/Mar/2025 23:22:55] "[33mGET /uploads/ HTTP/1.1[0m" 404 -
+INFO 2025-03-31 23:48:05 _internal.py: 97] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://156.17.227.92:5000
+INFO 2025-03-31 23:48:05 _internal.py: 97] [33mPress CTRL+C to quit[0m
+INFO 2025-03-31 23:48:11 _internal.py: 97] 156.17.227.92 - - [31/Mar/2025 23:48:11] "GET / HTTP/1.1" 200 -
+INFO 2025-03-31 23:48:11 _internal.py: 97] 156.17.227.92 - - [31/Mar/2025 23:48:11] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO 2025-03-31 23:50:30 _internal.py: 97] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://156.17.227.92:5000
+INFO 2025-03-31 23:50:30 _internal.py: 97] [33mPress CTRL+C to quit[0m
+INFO 2025-03-31 23:52:11 _internal.py: 97] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://156.17.227.92:5000
+INFO 2025-03-31 23:52:11 _internal.py: 97] [33mPress CTRL+C to quit[0m
+INFO 2025-03-31 23:52:38 _internal.py: 97] 178.43.5.71 - - [31/Mar/2025 23:52:38] "GET / HTTP/1.1" 200 -
+INFO 2025-03-31 23:52:38 _internal.py: 97] 178.43.5.71 - - [31/Mar/2025 23:52:38] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO 2025-03-31 23:53:58 _internal.py: 97] 178.43.5.71 - - [31/Mar/2025 23:53:58] "GET / HTTP/1.1" 200 -
+INFO 2025-03-31 23:53:58 _internal.py: 97] 178.43.5.71 - - [31/Mar/2025 23:53:58] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
