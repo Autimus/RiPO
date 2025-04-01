@@ -21,7 +21,9 @@ baza_twarzy = "main/baza_twarzy",
 resoult_file='main/wyniki/okwadratowane.jpg',
 resoult_file2= 'main/wyniki/dopasowania.txt',
 czy_wycinac_wiedo = False,
-film = "main/filmy/film2.MOV",milisekunda=85500,docelowe="main/tymczasowe/obraz.jpg",
+film = "main/filmy/film2.MOV",
+milisekunda=85500,
+docelowe="main/tymczasowe/obraz.jpg",
 czy_wyciac_twarze = False):
 
     # Iteruj przez wszystkie pliki w katalogu

@@ -59,7 +59,7 @@
 <div id="step4" style="display: none;">
     <h1>Wynik analizy</h1>
     <p id="analysisMessage">Analiza w toku...</p>
-    <img id="analysedImage" src="" alt="Wynik analizy" style="max-width: 600px; display: none;">
+    <div id="resultContainer"></div>
 </div>
 
 <script>
@@ -141,9 +141,10 @@
         }
 
         // Przesyłanie danych do serwera
-        fetch('/analyse_frame', {
+        fetch('http://156.17.227.92:5000/analyse_frame', {
             method: 'POST',
-            body: formData
+            body: formData,
+            mode: 'cors'
         })
             .then(response => response.json())
             .then(data => {
@@ -151,10 +152,28 @@
                 if (data.error) {
                     document.getElementById('analysisMessage').textContent = `Błąd: ${data.error}`;
                 } else {
-                    document.getElementById('analysisMessage').textContent = 'Analiza zakończona pomyślnie!';
-                    document.getElementById('analysedImage').src = data.saved_image; // Ścieżka do obrazu
-                    document.getElementById('analysedImage').style.display = 'block';
-                    document.getElementById('step4').style.display = 'block';
+                    const messageElement = document.getElementById("analysisMessage");
+                    const resultContainer = document.getElementById("resultContainer");
+
+                    const faceImage = document.createElement("img");
+                    faceImage.src = "http://156.17.227.92:5000/main/wyniki/okwadratowane.jpg";
+                    faceImage.width = 800;
+                    resultContainer.appendChild(faceImage);
+
+                    messageElement.textContent = data.message;
+                    data.matching_results.forEach(result => {
+                        const resultRow = document.createElement("div");
+
+                        resultRow.innerHTML = `
+                            <div>
+                                <img src="${result.photo_face}" alt="Twarz z klatki" width="200">
+                                <img src="${result.database_person}" alt="Twarz z bazy" width="200">
+                                <p>Procent podobieństwa: ${result.similarity.toFixed(2)}%</p>
+                            </div>
+                        `;
+                        resultContainer.appendChild(resultRow);
+                    });
+                    document.getElementById("step4").style.display = "block";
                 }
             })
             .catch(error => {
