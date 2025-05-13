@@ -29,6 +29,12 @@ def index():
 @app.route('/upload_photos', methods=['POST'])
 def upload_photos():
     pth = "main/baza_twarzy"
+
+    for filename in os.listdir(os.getcwd()+"/"+pth):
+        file_path = os.path.join(pth, filename)
+        if os.path.isfile(file_path):
+            os.remove(file_path)
+
     photo_files = request.files.getlist("photos")
     os.makedirs(pth, exist_ok=True)
 
@@ -112,7 +118,7 @@ def analyse_frame():
                 continue
 
             similarity = float(cols[1])
-            if similarity >= threshold:
+            if similarity >= threshold/100:
                 results.append({
                     'photo_face': url_for('serve_temporary', filename=f"twarz{cols[0]}.jpg", _external=True),
                     'similarity': similarity,

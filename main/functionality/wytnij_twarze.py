@@ -1,4 +1,4 @@
-
+import os
 import sys
 sys.path.append('')
 import logging.config
@@ -20,9 +20,8 @@ import glob
 from core.model_loader.face_detection.FaceDetModelLoader import FaceDetModelLoader
 from core.model_handler.face_detection.FaceDetModelHandler import FaceDetModelHandler
 
-def wytnijTwarzeBazy():
+def wytnijTwarzeBazy(resoult_path = 'main/baza_twarzy'):
     #face_DETECT
-    resoult_path = 'main/baza_twarzy'
     for image_path in glob.glob(str(resoult_path)+"/osoba*.jpg"):
         with open('config/model_conf.yaml') as f:
             model_conf = yaml.load(f, Loader=yaml.SafeLoader)
@@ -60,9 +59,8 @@ def wytnijTwarzeBazy():
         try:
             dets = faceDetModelHandler.inference_on_image(image)
         except Exception as e:
-           logger.error('Face detection failed!')
-           logger.error(e)
-           sys.exit(-1)
+            os.remove(image_path)
+            continue
 
 
     #face_ALIGMENT
@@ -109,3 +107,9 @@ def wytnijTwarzeBazy():
         image = cv2.imread(image_path)
         cropped_image = face_cropper.crop_image_by_mat(image, landmarks)
         cv2.imwrite(image_info_file, cropped_image)
+
+    #usuwanie osob z bazy
+    for filename in os.listdir(os.getcwd()+"/"+resoult_path):
+        file_path = os.path.join(resoult_path, filename)
+        if os.path.isfile(file_path) and not (filename.startswith("twarz") and filename.endswith(".jpg")):
+            os.remove(file_path)

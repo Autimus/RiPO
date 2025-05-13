@@ -220,10 +220,10 @@
 
 <!-- Wyniki -->
 
-<div class="header-container" style="display: none">
+<div class="header-container" style="display: none" id="resultContainer">
     <h2>Wyniki</h2>
     <div id="analysisMessage" class="status-message"></div>
-    <div id="resultContainer"></div>
+    <div id="resultContent"></div>
 
 </div>
 
@@ -419,13 +419,12 @@
         }
     }
 
-    // Analiza
+     // Analiza
     document.getElementById('analyse').addEventListener('click', function () {
 
         const resultContainer = document.getElementById("resultContainer");
-        const messageElement = document.getElementById("analysisMessage");
+        const resultContent = document.getElementById("resultContent");
 
-        resultContainer.innerHTML = '';
         resultContainer.style.display = "block";
 
         const formData = new FormData();
@@ -433,6 +432,8 @@
 
         const modelValue = document.getElementById("modelSelect").value;
         formData.append('model', modelValue);
+
+        updateStatus("analysisMessage", "status-loading");
 
         fetch('http://156.17.227.92:5000/analyse_frame', {
             method: 'POST',
@@ -444,7 +445,7 @@
                 console.log('Wynik analizy:', data);
 
                 if (data.error) {
-                    messageElement.textContent = `Błąd: ${data.error}`;
+                    updateStatus("analysisMessage", "status-error");
                     return;
                 }
 
@@ -454,6 +455,7 @@
                 resultContainer.appendChild(faceImage);
 
                 if (!data.matching_results || data.matching_results.length === 0) {
+                    updateStatus("analysisMessage", "status-error");
                     resultContent.innerHTML = "<p>Brak dopasowań.</p>";
                 } else {
                     data.matching_results.forEach(result => {
@@ -466,14 +468,14 @@
                 </div>
             `;
                         resultContainer.appendChild(resultRow);
+                        updateStatus("analysisMessage", "status-success");
                     });
                 }
 
-                messageElement.textContent = data.message;
             })
             .catch(error => {
+                updateStatus("analysisMessage", "status-error");
                 console.error('Błąd podczas analizy:', error);
-                messageElement.textContent = 'Wystąpił błąd podczas analizy.';
             });
     });
 
