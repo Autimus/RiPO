@@ -58,6 +58,8 @@ def wytnijTwarzeBazy(resoult_path = 'main/baza_twarzy'):
 
         try:
             dets = faceDetModelHandler.inference_on_image(image)
+            if dets.size <= 0:
+                raise Exception
         except Exception as e:
             os.remove(image_path)
             continue

@@ -419,13 +419,14 @@
         }
     }
 
-     // Analiza
+    // Analiza
     document.getElementById('analyse').addEventListener('click', function () {
 
         const resultContainer = document.getElementById("resultContainer");
         const resultContent = document.getElementById("resultContent");
 
         resultContainer.style.display = "block";
+        resultContent.innerHTML = '';
 
         const formData = new FormData();
         formData.append('threshold', slider.value);
@@ -452,10 +453,10 @@
                 const faceImage = document.createElement("img");
                 faceImage.src = "http://156.17.227.92:5000/main/wyniki/okwadratowane.jpg";
                 faceImage.width = 800;
-                resultContainer.appendChild(faceImage);
+                resultContent.appendChild(faceImage);
 
                 if (!data.matching_results || data.matching_results.length === 0) {
-                    updateStatus("analysisMessage", "status-error");
+                    updateStatus("analysisMessage", "status-success");
                     resultContent.innerHTML = "<p>Brak dopasowań.</p>";
                 } else {
                     data.matching_results.forEach(result => {
@@ -464,10 +465,10 @@
                 <div>
                     <img src="${result.photo_face}" alt="Twarz z klatki" width="200">
                     <img src="${result.database_person}" alt="Twarz z bazy" width="200">
-                    <p>Procent podobieństwa: ${result.similarity.toFixed(2)}%</p>
+                    <p>Procent podobieństwa: ${(result.similarity * 100).toFixed(2)}%</p>
                 </div>
             `;
-                        resultContainer.appendChild(resultRow);
+                        resultContent.appendChild(resultRow);
                         updateStatus("analysisMessage", "status-success");
                     });
                 }
