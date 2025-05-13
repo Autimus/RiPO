@@ -1,15 +1,14 @@
 import sys
 sys.path.append('')
 
-from sympy import false
 import re
 import os
 from api_usage.face_detect import runA
 from api_usage.face_aligment import runB
 from api_usage.face_crop import runC
-from main.filmy.wycinanie_z_filmu import stop_klatka
+from main.functionality.wycinanie_z_filmu import stop_klatka
 from api_usage.face_pipline import runD
-from main.baza_twarzy.wytnij_twarze import wytnijTwarzeBazy
+from main.functionality.wytnij_twarze import wytnijTwarzeBazy
 from PIL import Image
 import glob
 
@@ -24,7 +23,10 @@ czy_wycinac_wiedo = False,
 film = "main/filmy/film2.MOV",
 milisekunda=85500,
 docelowe="main/tymczasowe/obraz.jpg",
-czy_wyciac_twarze = False):
+czy_wyciac_twarze = False,
+prog=20,
+selected_model="3"
+):
 
     # Iteruj przez wszystkie pliki w katalogu
     for filename in os.listdir(os.getcwd()+"/"+folder):
@@ -32,9 +34,9 @@ czy_wyciac_twarze = False):
         if os.path.isfile(file_path) and not filename == "obraz.jpg":
             os.remove(file_path)
 
-    if czy_wycinac_wiedo:
-    # używasz tego gdy nie masz pliku 'obraz.jpg' w main/tymczasowe (wymaga filmów)
-        stop_klatka(film = film, milisekunda=milisekunda,docelowe=docelowe)
+    # if czy_wycinac_wiedo:
+    # # używasz tego gdy nie masz pliku 'obraz.jpg' w main/tymczasowe (wymaga filmów)
+    #     stop_klatka(film = film, milisekunda=milisekunda,docelowe=docelowe)
 
     if czy_wyciac_twarze:
         # uzywasz tego gdy nie masz plików 'twarz*.jpg' w main/baza_twarzy
@@ -61,4 +63,10 @@ czy_wyciac_twarze = False):
 
             new_img.save(str(folder)+"/"+re.search(regex,sciezka1).group(1)+"porownanie"+re.search(regex,sciezka2).group(1)+".jpg")
 
-    runD(resoult_path=folder,resoult_file=resoult_file2)
+    if int(selected_model) == 1:
+        model = "face_recognition_1.0"
+    elif int(selected_model) == 2:
+        model = "face_recognition_2.0"
+    elif int(selected_model) == 3:
+        model = "test"
+    runD(resoult_path=folder,resoult_file=resoult_file2, selected_model=model)

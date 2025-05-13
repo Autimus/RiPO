@@ -27,7 +27,7 @@ from core.model_loader.face_recognition.FaceRecModelLoader import FaceRecModelLo
 from core.model_handler.face_recognition.FaceRecModelHandler import FaceRecModelHandler
 
 
-def runD(resoult_path = 'main/tymczasowe', resoult_file= 'main/wyniki/dopasowania.txt'):
+def runD(resoult_path = 'main/tymczasowe', resoult_file= 'main/wyniki/dopasowania.txt',selected_model="test"):
     with open('config/model_conf.yaml') as f:
         model_conf = yaml.load(f, Loader=yaml.SafeLoader)
     # common setting for all models, need not modify.
@@ -62,6 +62,7 @@ def runD(resoult_path = 'main/tymczasowe', resoult_file= 'main/wyniki/dopasowani
     # face recognition model setting.
     model_category = 'face_recognition'
     model_name =  model_conf[scene][model_category]
+    model_name =  selected_model
     try:
         faceRecModelLoader = FaceRecModelLoader(model_path, model_category, model_name)
         model, cfg = faceRecModelLoader.load_model()

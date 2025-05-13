@@ -1,9 +1,11 @@
 from flask import Flask, request, jsonify, render_template, send_from_directory, url_for
 import os
 import cv2
+import shutil
 
 from flask_cors import CORS
 from main import wykrywanie
+from main.functionality.wytnij_twarze import wytnijTwarzeBazy
 
 app = Flask(__name__)
 UPLOAD_FOLDER = 'uploads'
@@ -17,62 +19,110 @@ def add_cors_headers(response):
     response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
     return response
 
+
 @app.route('/')
 def index():
     # Renderuj plik index.html
     return render_template('index.html')
 
-@app.route('/analyse_frame', methods=['POST'])
-def analyse_frame():
-    video_file = request.files.get('video')
-    photo_files = request.files.getlist('photos')  # Pobierz wszystkie pliki zdjęć
-    frame_number = request.form['frame_number']
+
+@app.route('/upload_photos', methods=['POST'])
+def upload_photos():
+    pth = "main/baza_twarzy"
+    photo_files = request.files.getlist("photos")
+    os.makedirs(pth, exist_ok=True)
+
+    for idx, photo in enumerate(photo_files, start=1):
+        filename = f"osoba{idx}.jpg"
+        save_path = os.path.join(pth, filename)
+        photo.save(save_path)
+
+    wytnijTwarzeBazy(pth)
+
+    return jsonify({"status": "success", "message": "Zdjęcia zapisane"})
+
+
+
+@app.route('/upload_video', methods=['POST'])
+def upload_video():
+    video_file = request.files.get("video")
+    os.makedirs("main/uploads", exist_ok=True)
 
     if video_file:
-        #Zapis wideo
-        video_path = os.path.join(os.getcwd(),"main/uploads", video_file.filename)
+        video_path = os.path.join("main/uploads", video_file.filename)
         video_file.save(video_path)
+        return jsonify({"status": "success", "filename": video_file.filename})
 
-        # Zapis zdjęć
-        photo_paths = []
-        iterator = 0
-        for photo in photo_files:
-            photo_path = os.path.join(os.getcwd(), "main/baza_twarzy", "osoba" + str(iterator) + ".jpg")
-            iterator += 1
-            photo.save(photo_path)
-            photo_paths.append(photo_path)
+    return jsonify({"status": "error", "message": "Brak pliku"}), 400
 
-        # Analiza wideo (klatka)
-        video = cv2.VideoCapture(video_path)
-        video.set(cv2.CAP_PROP_POS_MSEC, int(float(frame_number)*1000))
-        ret, frame = video.read()
-        cv2.imwrite(os.path.join(os.getcwd(), "main/tymczasowe", "obraz.jpg"), frame, [cv2.IMWRITE_JPEG_QUALITY, 100])
-        video.release()
 
-        if not ret:
-            return jsonify({'error': 'Nie udało się odczytać klatki'})
 
-        wykrywanie(czy_wyciac_twarze = True)
+@app.route('/upload_image', methods=['POST'])
+def upload_image():
+    image = request.files.get("image")
+    os.makedirs("main/uploads", exist_ok=True)
 
-        # Wczytaj dane dopasowania
-        matching_results = []
-        with open(os.path.join(os.getcwd(),"main/wyniki",'dopasowania.txt'), 'r') as file:
-            for line in file:
-                columns = line.strip().split('\t')
-                if columns[1]=="Dopasowanie":
-                    continue
+    if image:
+        image.save(os.path.join("main/uploads", image.filename))
+        return jsonify({"status": "success", "filename": image.filename})
+    return jsonify({"status": "error", "message": "Brak pliku"}), 400
 
-                matching_results.append({
-                    'photo_face': url_for('serve_temporary', filename=f"twarz{columns[0]}.jpg", _external=True),
-                    'similarity': float(columns[1]),
-                    'database_person': url_for('serve_database', filename=f"twarz{columns[2]}.jpg", _external=True)
+
+
+
+@app.route('/analyse_frame', methods=['POST'])
+def analyse_frame():
+    threshold = request.form.get('threshold', default=20, type=float)
+    modelValue = request.form.get('model')
+
+    uploads_dir = os.path.join("main", "uploads")
+    if not os.path.exists(uploads_dir):
+        return jsonify({'error': 'Brak katalogu z plikami'}), 500
+
+    # Znajdź ostatnio przesłane zdjęcie
+    image_files = sorted(
+        [f for f in os.listdir(uploads_dir) if f.lower().endswith(('.jpg', '.jpeg', '.png'))],
+        key=lambda x: os.path.getmtime(os.path.join(uploads_dir, x)),
+        reverse=True
+    )
+    if not image_files:
+        return jsonify({'error': 'Brak przesłanych zdjęć do analizy'}), 404
+    latest_image = image_files[0]
+    source_path = os.path.join(uploads_dir, latest_image)
+
+    # Skopiuj/Przenieś do katalogu tymczasowego analizy
+    temp_dir = os.path.join("main", "tymczasowe")
+    os.makedirs(temp_dir, exist_ok=True)
+    analysis_path = os.path.join(temp_dir, "obraz.jpg")
+    shutil.copy2(source_path, analysis_path)  # lub move jeśli nie chcesz zostawiać kopii
+
+    # Uruchom analizę (detekcja i porównanie)
+    wykrywanie(czy_wyciac_twarze=False,czy_wycinac_wiedo=False, prog=threshold,selected_model=modelValue)
+
+    # Wczytaj dane dopasowania
+    results = []
+    results_path = os.path.join("main", "wyniki", "dopasowania.txt")
+    if not os.path.exists(results_path):
+        return jsonify({'error': 'Brak pliku wyników dopasowania'}), 500
+
+    with open(results_path, 'r') as file:
+        for line in file:
+            cols = line.strip().split('\t')
+            if cols[1] == "Dopasowanie":
+                continue
+
+            similarity = float(cols[1])
+            if similarity >= threshold:
+                results.append({
+                    'photo_face': url_for('serve_temporary', filename=f"twarz{cols[0]}.jpg", _external=True),
+                    'similarity': similarity,
+                    'database_person': url_for('serve_database', filename=f"twarz{cols[2]}.jpg", _external=True)
                 })
 
-        return jsonify({
-            'message': 'Analiza zakończona pomyślnie',
-            'matching_results': matching_results  # Dopasowania z podobieństwem
-        })
-    return jsonify({'error': 'Nie przesłano pliku wideo'})
+    return jsonify({
+        'message': 'Analiza zakończona pomyślnie',
+        'matching_results': results
+    })
 
 @app.route('/main/tymczasowe/<path:filename>')
 def serve_temporary(filename):

@@ -4,143 +4,436 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Odtwarzacz Wideo</title>
+    <title>Analiza Rozpoznawalności Twarzy</title>
+
+    <style>
+        :root {
+            --color_bg: #393939;
+            --color_text: #eeeee4;
+            --color1: #b11a21;
+            --color1_hover: #d34249;
+            --color2: #47bce0;
+            --color_dis: #b0b8db;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: var(--color_bg);
+            padding: 20px;
+        }
+
+        h1 {
+            color: var(--color2);
+        }
+
+        h2, p {
+            color: var(--color_text);
+        }
+
+        .header-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        video, #gallery, .placeholder {
+            display: block;
+            max-width: 600px;
+        }
+        #gallery img {
+            width: 150px;
+            margin: 10px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 5px rgba(0,0,0,0.3);
+        }
+        #slider {
+            width: 300px;
+            background-color: var(--color2);
+            color: var(--color1);
+        }
+        .button,
+        .buttons-panel button{
+            padding: 8px 12px;
+            font-size: 14px;
+            color: white;
+            background-color: var(--color1);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            opacity: 1;
+        }
+        .button:hover,
+        .buttons-panel button:hover{
+            background-color: var(--color1_hover);
+        }
+        .button:disabled,
+        .buttons-panel button:disabled{
+            opacity: 0.5;
+        }
+
+        #analyse{
+            background-color: var(--color2);
+            margin-top: 20px;
+        }
+
+        #analyse:hover{
+            background-color: var(--color_text);
+            color: var(--color2);
+
+        }
+
+        .placeholder {
+            width: 600px;
+            height: 200px;
+            background-color: var(--color_dis);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 8px;
+            font-size: 18px;
+            color: #555;
+        }
+
+        .buttons-panel {
+            flex-direction: row;
+        }
+
+        .status-message {
+            font-size: 10px;
+            color: var(--color_text);
+            margin-top: 5px;
+        }
+
+        .status-loading {
+            color: orange;
+        }
+
+        .status-success {
+            color: green;
+        }
+
+        .status-error {
+            color: red;
+        }
+
+        @keyframes dotAnimation {
+            0% {
+                content: ".";
+            }
+            33% {
+                content: "..";
+            }
+            66% {
+                content: "...";
+            }
+            100% {
+                content: ".";
+            }
+        }
+
+        .status-loading::after {
+            content: ".";
+            animation: dotAnimation 1.5s infinite steps(1, end);
+        }
+
+    </style>
+
 </head>
 
 <body>
 
-
-<!-- Krok pierwszy -->
-<div id="step1">
-    <h1>Krok 1: Wybierz plik MP4</h1>
-    <form id="fileForm">
-        <input type="file" id="videoInput" accept="video/quicktime">
-        <button type="button" id="acceptVideo" disabled>Akceptuj</button>
-    </form>
-    <br>
-    <hr>
-</div>
+<h1>ROZPOZNAWANIE I PRZETWARZANIE TWARZY</h1>
 
 
-<!-- Krok drugi -->
-<div id="step2" style="display: none;">
-    <h1>Krok 2: Wybierz folder z bazą zdjęć osób, których twarze chcesz znaleźć</h1>
-    <form id="photosForm">
-        <input type="file" id="photosInput" webkitdirectory>
-        <button type="button" id="acceptPhotos" disabled>Akceptuj</button>
-    </form>
-    <br>
-    <hr>
-</div>
 
 
-<!-- Krok trzeci -->
-<div id="step3" style="display: none;">
 
-    <h1>Krok 3: Wybierz klatkę do analizy</h1>
-    <video id="videoPlayer" controls width="600">
-        <source id="videoSource" src="">
-        Twoja przeglądarka nie obsługuje tagu wideo.
-    </video>
-    <br>
-    <br>
 
-    <label for="slider">Ustaw wartość, od której twarze będą wykrywane jako rozpoznane: </label>
-    <input type="range" id="slider" min="0" max="100" value="50" step="1">
-    <span id="sliderValue">50%</span>
-    <br>
-    <br>
+<!-- Sekcja zdjęć -->
 
-    <button type="button" id="analyse" disabled>Analizuj wybraną klatkę wideo</button>
+<div class="header-container">
+    <h2>Krok 1: Wybierz folder z bazą twarzy</h2>
+
+    <div id="gallery-container">
+        <div class="placeholder">Nie wybrano zdjęć</div>
+    </div>
+
+    <!-- TODO: Poprawa wizualna, guzik wewnątrz guzika się wyswietla-->
+
+    <input type="file" id="photosInput" webkitdirectory directory multiple class="button">
+    <div id="photosStatus" class="status-message"></div>
 
 </div>
 
-<!-- Krok czwarty -->
-<div id="step4" style="display: none;">
-    <h1>Wynik analizy</h1>
-    <p id="analysisMessage">Analiza w toku...</p>
+<!-- Sekcja wideo -->
+
+<div class="header-container">
+    <h2>Krok 2: Wybierz zdjęcie lub plik wideo</h2>
+
+    <div id="video-container">
+        <div class="placeholder">Nie wybrano zdjęcia ani wideo</div>
+
+    </div>
+    <!-- TODO: Poprawa wizualna, guzik wewnątrz guzika się wyswietla-->
+
+    <input type="file" id="videoInput" accept="video/*,image/*" class="button">
+
+    <div class="buttons-panel">
+        <button id="send-frame-btn" onclick="sendVideoFetch(this)">Prześlij klatkę</button> <!-- FETCH -->
+        <button id="send-video-btn" onclick="sendVideoFetch(this)">Prześlij wideo</button>  <!-- FETCH -->
+    </div>
+
+    <div id="videoStatus" class="status-message"></div>
+
+</div>
+
+
+<!-- Suwak do ustalania procentowego progu rozpoznawalności -->
+
+<div class="header-container">
+    <h2>Krok 3: Ustaw próg rozpoznawalności oraz model rozpoznawania twarzy</h2>
+
+    <input type="range" id="slider" min="0" max="100" value="20" step="1">
+    <p>Obecny próg: <span id="threshold">20</span>%</p>
+
+    <select id="modelSelect" class="button">
+        <option value="1">Model 1</option>
+        <option value="2">Model 2</option>
+        <option value="3" selected>Model 3</option>
+    </select>
+    <p>Wybrany model</p>
+
+
+</div>
+
+
+
+<!-- Przycisk analizy-->
+
+<button class="button" id="analyse"> Analizuj </button>
+
+
+<!-- Wyniki -->
+
+<div class="header-container" style="display: none">
+    <h2>Wyniki</h2>
+    <div id="analysisMessage" class="status-message"></div>
     <div id="resultContainer"></div>
+
 </div>
 
 <script>
+    const slider = document.getElementById("slider");
+    const thresholdText = document.getElementById("threshold");
+    const videoInput = document.getElementById("videoInput");
+    const photosInput = document.getElementById("photosInput");
 
-    const step1 = document.getElementById('step1');
-    const videoInput = step1.querySelector('#videoInput');
-    const acceptVideo = document.getElementById('acceptVideo');
+    const videoContainer = document.getElementById("video-container");
+    const galleryContainer = document.getElementById("gallery-container");
 
-    const step2 = document.getElementById('step2');
-    const photosInput = document.getElementById('photosInput');
-    const acceptPhotos = document.getElementById('acceptPhotos');
+    const sendFrameBtn = document.getElementById("send-frame-btn");
+    const sendVideoBtn = document.getElementById("send-video-btn");
 
-    const step3 = document.getElementById('step3');
-    const videoPlayer = document.getElementById('videoPlayer');
-    const videoSource = document.getElementById('videoSource');
-    const slider = document.getElementById('slider');
-    const sliderValue = document.getElementById('sliderValue');
+    let uploadedMedia = null;
+    let isVideo = false;
+    let uploadedPhotos = [];
 
-    const analyse = document.getElementById('analyse');
+    sendFrameBtn.disabled = true;
+    sendVideoBtn.disabled = true;
 
-    // Wybieranie wideo
-    videoInput.addEventListener('change', function() {
-        if (videoInput.files.length > 0) {
-            acceptVideo.disabled = false;
+    // === ŁADOWANIE ==================================================
+
+    function updateStatus(elementId, statusType) {
+        const statusElement = document.getElementById(elementId);
+        statusElement.style.display = "block";
+        switch (statusType) {
+            case "status-success":
+                statusElement.innerText = "Sukces!";    break;
+            case "status-error":
+                statusElement.innerText = "Coś poszło nie tak.";    break;
+            case "status-loading":
+                statusElement.innerText = "Ładowanie";    break;
+            default:
+                statusElement.style.display = "none";
         }
+        statusElement.classList.remove("status-loading", "status-success", "status-error");
+        statusElement.classList.add(statusType);
+    }
+
+    // ================================================================
+
+    // Suwak
+    slider.addEventListener("input", function () {
+        thresholdText.innerText = `${slider.value}`;
     });
 
-    // Zaakceptowanie wideo
-    acceptVideo.addEventListener('click', function() {
+    // Obsługa pliku multimedialnego (zdjęcie LUB wideo tłumu)
+    videoInput.addEventListener("change", function () {
         const file = videoInput.files[0];
-        if (file) {
-            step2.style.display = 'block';
-            acceptVideo.disabled = true;
+        if (!file) return;
+
+        uploadedMedia = file;
+        const url = URL.createObjectURL(file);
+        sendFrameBtn.disabled = true;
+        sendVideoBtn.disabled = true;
+
+        if (file.type.startsWith("image/")) {
+            isVideo = false;
+            videoContainer.innerHTML = `<img src="${url}" width="600" alt="Załadowane zdjęcie">`;
+        }
+        else if (file.type.startsWith("video/") || file.name.endsWith(".MOV")) {
+            isVideo = true;
+            videoContainer.innerHTML = `
+                <video id="videoPlayer" controls width="600">
+                    <source src="${url}">
+                    Twoja przeglądarka nie obsługuje tagu wideo.
+                </video>
+            `;
+        } else {
+            alert("Wybierz plik wideo lub obraz.");
+            console.log(videoInput.files);
+            uploadedMedia = null;
+            videoContainer.innerHTML = `<div class="placeholder">Nie wybrano wideo</div>`;
+            return;
+        }
+
+        sendFrameBtn.disabled = false;
+        // sendVideoBtn.disabled = !isVideo;
+    });
+
+    // Galeria zdjęć (baza twarzy)
+    photosInput.addEventListener("change", function () {
+        const files = photosInput.files;
+        if (files.length > 0) {
+            uploadedPhotos = Array.from(files);
+            galleryContainer.innerHTML = '<div id="gallery"></div>';
+            const gallery = document.getElementById("gallery");
+
+            uploadedPhotos.forEach(file => {
+                const img = document.createElement("img");
+                img.src = URL.createObjectURL(file);
+                gallery.appendChild(img);
+            });
+
+            sendPhotosFetch(); // <<< FETCH
+        } else {
+            uploadedPhotos = [];
+            galleryContainer.innerHTML = `<div class="placeholder">Nie wybrano zdjęć</div>`;
         }
     });
 
-    // Wybieranie folderu zdjęć
-    photosInput.addEventListener('change', function() {
-        if (photosInput.files.length > 0) {
-            acceptPhotos.disabled = false;
-        }
-    });
 
-    // Zaakceptowanie zdjęć
-    acceptPhotos.addEventListener('click', function() {
-        const file = videoInput.files[0];
-        if (file) {
-            step3.style.display = 'block';
-            const url = URL.createObjectURL(file);
-            console.log(url);
-            videoSource.src = url;
-            videoPlayer.load();
-        }
-    });
+    // === FETCHE =========================================================
 
-    // Wybranie klatki
-    videoPlayer.addEventListener('pause', function() {
-        analyse.disabled = false;
-    });
-    videoPlayer.addEventListener('play', function() {
-        analyse.disabled = true;
-    });
-
-    // Aktualizacja suwaka
-    slider.addEventListener('input', function() {
-        sliderValue.textContent = `${slider.value}%`;
-    });
-
-    document.getElementById('analyse').addEventListener('click', function() {
-        const videoFile = document.getElementById('videoInput').files[0];
-        const frameNumber = videoPlayer.currentTime;
-        const photoFiles = document.getElementById('photosInput').files; // Pobierz wszystkie pliki zdjęć
+    // Wyślij bazę zdjęć
+    function sendPhotosFetch() {
+        if (uploadedPhotos.length === 0) return;
 
         const formData = new FormData();
-        formData.append('video', videoFile);
-        formData.append('frame_number', frameNumber);
-        for (let i = 0; i < photoFiles.length; i++) {
-            formData.append('photos', photoFiles[i]);  // Każdy plik dodany pod kluczem 'photos'
-        }
+        uploadedPhotos.forEach(photo => {
+            formData.append("photos", photo);
+        });
 
-        // Przesyłanie danych do serwera
+        updateStatus("photosStatus", "status-loading");
+
+        fetch("http://156.17.227.92:5000/upload_photos", {
+            method: "POST",
+            body: formData
+        })
+            .then(res => res.json())
+            .then(data => {
+                updateStatus("photosStatus", "status-success");
+                console.log(data);
+            })
+            .catch(err => {
+                updateStatus("photosStatus", "status-error");
+                console.error("Błąd przesyłania zdjęć:", err);
+            });
+    }
+
+    // Wyślij obraz lub wideo
+    function sendVideoFetch(node) {
+        if (!uploadedMedia) return;
+
+        const formData = new FormData();
+
+        if (node === sendVideoBtn) {
+            // Przesyłanie całego pliku wideo
+
+            formData.append("video", uploadedMedia);
+            updateStatus("videoStatus", "status-loading");
+
+            fetch("http://156.17.227.92:5000/upload_video", {
+                method: "POST",
+                body: formData
+            })
+                .then(res => res.json())
+                .then(data => {
+                    updateStatus("videoStatus", "status-success");
+                    console.log(data);
+                })
+                .catch(err => {
+                    updateStatus("videoStatus", "status-error");
+                    console.error("Błąd przesyłania:", err);
+                });
+
+        } else {
+            // Przesyłanie pojedynczej klatki z wideo
+
+            const videoPlayer = document.getElementById("videoPlayer");
+            if (!videoPlayer) return;
+
+            const canvas = document.createElement("canvas");
+            canvas.width = videoPlayer.videoWidth;
+            canvas.height = videoPlayer.videoHeight;
+
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(videoPlayer, 0, 0, canvas.width, canvas.height);
+
+            canvas.toBlob(blob => {
+                if (!blob) return;
+
+                formData.append("image", blob, "frame.jpg");
+
+                updateStatus("videoStatus", "status-loading");
+
+                fetch("http://156.17.227.92:5000/upload_image", {
+                    method: "POST",
+                    body: formData
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        updateStatus("videoStatus", "status-success");
+                        console.log(data);
+                    })
+                    .catch(err => {
+                        updateStatus("videoStatus", "status-error");
+                        console.error("Błąd przesyłania klatki:", err);
+                    });
+            }, "image/jpeg");
+        }
+    }
+
+    // Analiza
+    document.getElementById('analyse').addEventListener('click', function () {
+
+        const resultContainer = document.getElementById("resultContainer");
+        const messageElement = document.getElementById("analysisMessage");
+
+        resultContainer.innerHTML = '';
+        resultContainer.style.display = "block";
+
+        const formData = new FormData();
+        formData.append('threshold', slider.value);
+
+        const modelValue = document.getElementById("modelSelect").value;
+        formData.append('model', modelValue);
+
         fetch('http://156.17.227.92:5000/analyse_frame', {
             method: 'POST',
             body: formData,
@@ -149,39 +442,45 @@
             .then(response => response.json())
             .then(data => {
                 console.log('Wynik analizy:', data);
+
                 if (data.error) {
-                    document.getElementById('analysisMessage').textContent = `Błąd: ${data.error}`;
+                    messageElement.textContent = `Błąd: ${data.error}`;
+                    return;
+                }
+
+                const faceImage = document.createElement("img");
+                faceImage.src = "http://156.17.227.92:5000/main/wyniki/okwadratowane.jpg";
+                faceImage.width = 800;
+                resultContainer.appendChild(faceImage);
+
+                if (!data.matching_results || data.matching_results.length === 0) {
+                    resultContent.innerHTML = "<p>Brak dopasowań.</p>";
                 } else {
-                    const messageElement = document.getElementById("analysisMessage");
-                    const resultContainer = document.getElementById("resultContainer");
-
-                    const faceImage = document.createElement("img");
-                    faceImage.src = "http://156.17.227.92:5000/main/wyniki/okwadratowane.jpg";
-                    faceImage.width = 800;
-                    resultContainer.appendChild(faceImage);
-
-                    messageElement.textContent = data.message;
                     data.matching_results.forEach(result => {
                         const resultRow = document.createElement("div");
-
                         resultRow.innerHTML = `
-                            <div>
-                                <img src="${result.photo_face}" alt="Twarz z klatki" width="200">
-                                <img src="${result.database_person}" alt="Twarz z bazy" width="200">
-                                <p>Procent podobieństwa: ${result.similarity.toFixed(2)}%</p>
-                            </div>
-                        `;
+                <div>
+                    <img src="${result.photo_face}" alt="Twarz z klatki" width="200">
+                    <img src="${result.database_person}" alt="Twarz z bazy" width="200">
+                    <p>Procent podobieństwa: ${result.similarity.toFixed(2)}%</p>
+                </div>
+            `;
                         resultContainer.appendChild(resultRow);
                     });
-                    document.getElementById("step4").style.display = "block";
                 }
+
+                messageElement.textContent = data.message;
             })
             .catch(error => {
                 console.error('Błąd podczas analizy:', error);
-                document.getElementById('analysisMessage').textContent = 'Wystąpił błąd podczas analizy.';
+                messageElement.textContent = 'Wystąpił błąd podczas analizy.';
             });
     });
 
+
+    // =========================================================================
 </script>
+
+
 </body>
 </html>
