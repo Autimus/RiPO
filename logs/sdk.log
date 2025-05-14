@@ -1,59 +1,60 @@
-INFO 2025-05-13 19:50:35 FaceDetModelLoader.py: 16] Start to analyze the face detection model, model path: models, model category: face_detection，model name: face_detection_1.0
-INFO 2025-05-13 19:50:35 BaseModelLoader.py: 34] Successfully parsed the model configuration file meta.json!
-INFO 2025-05-13 19:50:35 FaceDetModelLoader.py: 34] Successfully loaded the face detection model!
-INFO 2025-05-13 19:50:35 FaceDetModelLoader.py: 16] Start to analyze the face detection model, model path: models, model category: face_detection，model name: face_detection_1.0
-INFO 2025-05-13 19:50:35 BaseModelLoader.py: 34] Successfully parsed the model configuration file meta.json!
-INFO 2025-05-13 19:50:35 FaceDetModelLoader.py: 34] Successfully loaded the face detection model!
-INFO 2025-05-13 19:50:35 FaceDetModelLoader.py: 16] Start to analyze the face detection model, model path: models, model category: face_detection，model name: face_detection_1.0
-INFO 2025-05-13 19:50:35 BaseModelLoader.py: 34] Successfully parsed the model configuration file meta.json!
-INFO 2025-05-13 19:50:36 FaceDetModelLoader.py: 34] Successfully loaded the face detection model!
-INFO 2025-05-13 19:50:36 FaceDetModelLoader.py: 16] Start to analyze the face detection model, model path: models, model category: face_detection，model name: face_detection_1.0
-INFO 2025-05-13 19:50:36 BaseModelLoader.py: 34] Successfully parsed the model configuration file meta.json!
-INFO 2025-05-13 19:50:36 FaceDetModelLoader.py: 34] Successfully loaded the face detection model!
-INFO 2025-05-13 19:50:36 FaceDetModelLoader.py: 16] Start to analyze the face detection model, model path: models, model category: face_detection，model name: face_detection_1.0
-INFO 2025-05-13 19:50:36 BaseModelLoader.py: 34] Successfully parsed the model configuration file meta.json!
-INFO 2025-05-13 19:50:36 FaceDetModelLoader.py: 34] Successfully loaded the face detection model!
-INFO 2025-05-13 19:50:36 FaceDetModelLoader.py: 16] Start to analyze the face detection model, model path: models, model category: face_detection，model name: face_detection_1.0
-INFO 2025-05-13 19:50:36 BaseModelLoader.py: 34] Successfully parsed the model configuration file meta.json!
-INFO 2025-05-13 19:50:36 FaceDetModelLoader.py: 34] Successfully loaded the face detection model!
-INFO 2025-05-13 19:50:36 FaceDetModelLoader.py: 16] Start to analyze the face detection model, model path: models, model category: face_detection，model name: face_detection_1.0
-INFO 2025-05-13 19:50:36 BaseModelLoader.py: 34] Successfully parsed the model configuration file meta.json!
-INFO 2025-05-13 19:50:36 FaceDetModelLoader.py: 34] Successfully loaded the face detection model!
-INFO 2025-05-13 19:50:36 FaceDetModelLoader.py: 16] Start to analyze the face detection model, model path: models, model category: face_detection，model name: face_detection_1.0
-INFO 2025-05-13 19:50:36 BaseModelLoader.py: 34] Successfully parsed the model configuration file meta.json!
-INFO 2025-05-13 19:50:36 FaceDetModelLoader.py: 34] Successfully loaded the face detection model!
-INFO 2025-05-13 19:50:36 FaceDetModelLoader.py: 16] Start to analyze the face detection model, model path: models, model category: face_detection，model name: face_detection_1.0
-INFO 2025-05-13 19:50:36 BaseModelLoader.py: 34] Successfully parsed the model configuration file meta.json!
-INFO 2025-05-13 19:50:36 FaceDetModelLoader.py: 34] Successfully loaded the face detection model!
-INFO 2025-05-13 19:50:36 FaceDetModelLoader.py: 16] Start to analyze the face detection model, model path: models, model category: face_detection，model name: face_detection_1.0
-INFO 2025-05-13 19:50:36 BaseModelLoader.py: 34] Successfully parsed the model configuration file meta.json!
-INFO 2025-05-13 19:50:36 FaceDetModelLoader.py: 34] Successfully loaded the face detection model!
-INFO 2025-05-13 19:50:36 FaceDetModelLoader.py: 16] Start to analyze the face detection model, model path: models, model category: face_detection，model name: face_detection_1.0
-INFO 2025-05-13 19:50:36 BaseModelLoader.py: 34] Successfully parsed the model configuration file meta.json!
-INFO 2025-05-13 19:50:36 FaceDetModelLoader.py: 34] Successfully loaded the face detection model!
-INFO 2025-05-13 19:50:36 FaceDetModelLoader.py: 16] Start to analyze the face detection model, model path: models, model category: face_detection，model name: face_detection_1.0
-INFO 2025-05-13 19:50:36 BaseModelLoader.py: 34] Successfully parsed the model configuration file meta.json!
-INFO 2025-05-13 19:50:36 FaceDetModelLoader.py: 34] Successfully loaded the face detection model!
-INFO 2025-05-13 19:50:36 FaceDetModelLoader.py: 16] Start to analyze the face detection model, model path: models, model category: face_detection，model name: face_detection_1.0
-INFO 2025-05-13 19:50:36 BaseModelLoader.py: 34] Successfully parsed the model configuration file meta.json!
-INFO 2025-05-13 19:50:36 FaceDetModelLoader.py: 34] Successfully loaded the face detection model!
-INFO 2025-05-13 19:50:36 FaceDetModelLoader.py: 16] Start to analyze the face detection model, model path: models, model category: face_detection，model name: face_detection_1.0
-INFO 2025-05-13 19:50:36 BaseModelLoader.py: 34] Successfully parsed the model configuration file meta.json!
-INFO 2025-05-13 19:50:36 FaceDetModelLoader.py: 34] Successfully loaded the face detection model!
-INFO 2025-05-13 19:50:36 FaceDetModelLoader.py: 16] Start to analyze the face detection model, model path: models, model category: face_detection，model name: face_detection_1.0
-INFO 2025-05-13 19:50:36 BaseModelLoader.py: 34] Successfully parsed the model configuration file meta.json!
-INFO 2025-05-13 19:50:36 FaceDetModelLoader.py: 34] Successfully loaded the face detection model!
-INFO 2025-05-13 19:50:36 FaceDetModelLoader.py: 16] Start to analyze the face detection model, model path: models, model category: face_detection，model name: face_detection_1.0
-INFO 2025-05-13 19:50:36 BaseModelLoader.py: 34] Successfully parsed the model configuration file meta.json!
-INFO 2025-05-13 19:50:37 FaceDetModelLoader.py: 34] Successfully loaded the face detection model!
-INFO 2025-05-13 19:50:37 FaceAlignModelLoader.py: 22] Start to analyze the face landmark model, model path: models, model category: face_alignment，model name: face_alignment_1.0
-INFO 2025-05-13 19:50:37 BaseModelLoader.py: 34] Successfully parsed the model configuration file meta.json!
-INFO 2025-05-13 19:50:37 FaceAlignModelLoader.py: 35] Successfully loaded the face landmark model!
-INFO 2025-05-13 19:50:37 _internal.py: 97] 156.17.227.92 - - [13/May/2025 19:50:37] "[35m[1mPOST /upload_photos HTTP/1.1[0m" 500 -
-ERROR 2025-05-13 19:50:37 _internal.py: 97] 172.233.58.223 - - [13/May/2025 19:50:37] code 400, message Bad request version ("0\x94æñ3úÿ\x00\x9c\x13\x02\x13\x03\x13\x01\x003\x009\x005\x00/À,À0\x00£\x00\x9fÌ©Ì¨ÌªÀ¯À\xadÀ£À\x9fÀ]ÀaÀWÀSÀ+À/\x00¢\x00\x9eÀ®À¬À¢À\x9eÀ\\À`ÀVÀRÀ$À(\x00k\x00jÀsÀw\x00Ä\x00ÃÀ#À'\x00g\x00@ÀrÀv\x00¾\x00½À")
-INFO 2025-05-13 19:50:37 _internal.py: 97] 172.233.58.223 - - [13/May/2025 19:50:37] "[31m[1m\x16\x03\x01\x02\x00\x01\x00\x01ü\x03\x03\x93·\\\x19"\x0bÅz\x87ë¤ó\x9e@\x10ç!4,/ölÁ\x15qo\x1cÃa\x9d\x1e\x1b %T¤lG\x94¦È\x06\x83\x05å8Ô\x08ýsT\x963Tº^Æ\x0d0\x94æñ3úÿ\x00\x9c\x13\x02\x13\x03\x13\x01\x003\x009\x005\x00/À,À0\x00£\x00\x9fÌ©Ì¨ÌªÀ¯À­À£À\x9fÀ]ÀaÀWÀSÀ+À/\x00¢\x00\x9eÀ®À¬À¢À\x9eÀ\\À`ÀVÀRÀ$À(\x00k\x00jÀsÀw\x00Ä\x00ÃÀ#À'\x00g\x00@ÀrÀv\x00¾\x00½À[0m" 400 -
-ERROR 2025-05-13 19:50:38 _internal.py: 97] 172.233.58.223 - - [13/May/2025 19:50:38] code 400, message Bad request syntax ('\x0e\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00bbbb0100000001')
-INFO 2025-05-13 19:50:38 _internal.py: 97] 172.233.58.223 - - [13/May/2025 19:50:38] "[31m[1m\x0e\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00bbbb0100000001[0m" 400 -
-INFO 2025-05-13 20:03:24 _internal.py: 97]  * Detected change in '/home/autimus/Pulpit/Kopia_SPEED/PWR/RiPO/main/functionality/wytnij_twarze.py', reloading
-WARNING 2025-05-13 20:03:31 _internal.py: 97]  * Debugger is active!
-INFO 2025-05-13 20:03:31 _internal.py: 97]  * Debugger PIN: 120-839-723
+INFO 2025-05-15 00:38:58 FaceAlignModelLoader.py: 22] Start to analyze the face landmark model, model path: models, model category: face_alignment，model name: face_alignment_1.0
+INFO 2025-05-15 00:38:58 BaseModelLoader.py: 34] Successfully parsed the model configuration file meta.json!
+INFO 2025-05-15 00:38:58 FaceAlignModelLoader.py: 35] Successfully loaded the face landmark model!
+INFO 2025-05-15 00:38:58 FaceRecModelLoader.py: 16] Start to analyze the face recognition model, model path: models, model category: face_recognition，model name: test
+INFO 2025-05-15 00:38:58 BaseModelLoader.py: 34] Successfully parsed the model configuration file meta.json!
+INFO 2025-05-15 00:38:58 FaceRecModelLoader.py: 31] Successfully loaded the face recognition model!
+INFO 2025-05-15 00:38:59 _internal.py: 97] 178.43.172.226 - - [15/May/2025 00:38:59] "POST /analyse_frame HTTP/1.1" 200 -
+INFO 2025-05-15 00:39:20 _internal.py: 97] 178.43.172.226 - - [15/May/2025 00:39:20] "GET / HTTP/1.1" 200 -
+INFO 2025-05-15 00:39:30 _internal.py: 97] 178.43.172.226 - - [15/May/2025 00:39:30] "POST /upload_image HTTP/1.1" 200 -
+INFO 2025-05-15 00:39:34 FaceDetModelLoader.py: 16] Start to analyze the face detection model, model path: models, model category: face_detection，model name: face_detection_1.0
+INFO 2025-05-15 00:39:34 BaseModelLoader.py: 34] Successfully parsed the model configuration file meta.json!
+INFO 2025-05-15 00:39:34 FaceDetModelLoader.py: 34] Successfully loaded the face detection model!
+INFO 2025-05-15 00:39:35 FaceAlignModelLoader.py: 22] Start to analyze the face landmark model, model path: models, model category: face_alignment，model name: face_alignment_1.0
+INFO 2025-05-15 00:39:35 BaseModelLoader.py: 34] Successfully parsed the model configuration file meta.json!
+INFO 2025-05-15 00:39:35 FaceAlignModelLoader.py: 35] Successfully loaded the face landmark model!
+INFO 2025-05-15 00:39:35 FaceDetModelLoader.py: 16] Start to analyze the face detection model, model path: models, model category: face_detection，model name: face_detection_1.0
+INFO 2025-05-15 00:39:35 BaseModelLoader.py: 34] Successfully parsed the model configuration file meta.json!
+INFO 2025-05-15 00:39:35 FaceDetModelLoader.py: 34] Successfully loaded the face detection model!
+INFO 2025-05-15 00:39:35 FaceAlignModelLoader.py: 22] Start to analyze the face landmark model, model path: models, model category: face_alignment，model name: face_alignment_1.0
+INFO 2025-05-15 00:39:35 BaseModelLoader.py: 34] Successfully parsed the model configuration file meta.json!
+INFO 2025-05-15 00:39:36 FaceAlignModelLoader.py: 35] Successfully loaded the face landmark model!
+INFO 2025-05-15 00:39:36 FaceRecModelLoader.py: 16] Start to analyze the face recognition model, model path: models, model category: face_recognition，model name: face_recognition_1.0
+INFO 2025-05-15 00:39:36 BaseModelLoader.py: 34] Successfully parsed the model configuration file meta.json!
+INFO 2025-05-15 00:39:36 FaceRecModelLoader.py: 31] Successfully loaded the face recognition model!
+INFO 2025-05-15 00:39:36 _internal.py: 97] 178.43.172.226 - - [15/May/2025 00:39:36] "POST /analyse_frame HTTP/1.1" 200 -
+INFO 2025-05-15 00:39:36 _internal.py: 97] 178.43.172.226 - - [15/May/2025 00:39:36] "GET /main/wyniki/okwadratowane.jpg HTTP/1.1" 200 -
+INFO 2025-05-15 00:39:36 _internal.py: 97] 178.43.172.226 - - [15/May/2025 00:39:36] "GET /main/tymczasowe/twarz0.jpg HTTP/1.1" 200 -
+INFO 2025-05-15 00:39:36 _internal.py: 97] 178.43.172.226 - - [15/May/2025 00:39:36] "[36mGET /main/baza_twarzy/twarz2.jpg HTTP/1.1[0m" 304 -
+INFO 2025-05-15 00:39:42 FaceDetModelLoader.py: 16] Start to analyze the face detection model, model path: models, model category: face_detection，model name: face_detection_1.0
+INFO 2025-05-15 00:39:42 BaseModelLoader.py: 34] Successfully parsed the model configuration file meta.json!
+INFO 2025-05-15 00:39:42 FaceDetModelLoader.py: 34] Successfully loaded the face detection model!
+INFO 2025-05-15 00:39:43 FaceAlignModelLoader.py: 22] Start to analyze the face landmark model, model path: models, model category: face_alignment，model name: face_alignment_1.0
+INFO 2025-05-15 00:39:43 BaseModelLoader.py: 34] Successfully parsed the model configuration file meta.json!
+INFO 2025-05-15 00:39:44 FaceAlignModelLoader.py: 35] Successfully loaded the face landmark model!
+INFO 2025-05-15 00:39:44 FaceDetModelLoader.py: 16] Start to analyze the face detection model, model path: models, model category: face_detection，model name: face_detection_1.0
+INFO 2025-05-15 00:39:44 BaseModelLoader.py: 34] Successfully parsed the model configuration file meta.json!
+INFO 2025-05-15 00:39:44 FaceDetModelLoader.py: 34] Successfully loaded the face detection model!
+INFO 2025-05-15 00:39:44 FaceAlignModelLoader.py: 22] Start to analyze the face landmark model, model path: models, model category: face_alignment，model name: face_alignment_1.0
+INFO 2025-05-15 00:39:44 BaseModelLoader.py: 34] Successfully parsed the model configuration file meta.json!
+INFO 2025-05-15 00:39:44 FaceAlignModelLoader.py: 35] Successfully loaded the face landmark model!
+INFO 2025-05-15 00:39:44 FaceRecModelLoader.py: 16] Start to analyze the face recognition model, model path: models, model category: face_recognition，model name: face_recognition_2.0
+INFO 2025-05-15 00:39:44 BaseModelLoader.py: 34] Successfully parsed the model configuration file meta.json!
+INFO 2025-05-15 00:39:44 FaceRecModelLoader.py: 31] Successfully loaded the face recognition model!
+INFO 2025-05-15 00:39:45 _internal.py: 97] 178.43.172.226 - - [15/May/2025 00:39:45] "POST /analyse_frame HTTP/1.1" 200 -
+INFO 2025-05-15 00:40:08 FaceDetModelLoader.py: 16] Start to analyze the face detection model, model path: models, model category: face_detection，model name: face_detection_1.0
+INFO 2025-05-15 00:40:08 BaseModelLoader.py: 34] Successfully parsed the model configuration file meta.json!
+INFO 2025-05-15 00:40:08 FaceDetModelLoader.py: 34] Successfully loaded the face detection model!
+INFO 2025-05-15 00:40:09 FaceAlignModelLoader.py: 22] Start to analyze the face landmark model, model path: models, model category: face_alignment，model name: face_alignment_1.0
+INFO 2025-05-15 00:40:09 BaseModelLoader.py: 34] Successfully parsed the model configuration file meta.json!
+INFO 2025-05-15 00:40:09 FaceAlignModelLoader.py: 35] Successfully loaded the face landmark model!
+INFO 2025-05-15 00:40:10 FaceDetModelLoader.py: 16] Start to analyze the face detection model, model path: models, model category: face_detection，model name: face_detection_1.0
+INFO 2025-05-15 00:40:10 BaseModelLoader.py: 34] Successfully parsed the model configuration file meta.json!
+INFO 2025-05-15 00:40:10 FaceDetModelLoader.py: 34] Successfully loaded the face detection model!
+INFO 2025-05-15 00:40:10 FaceAlignModelLoader.py: 22] Start to analyze the face landmark model, model path: models, model category: face_alignment，model name: face_alignment_1.0
+INFO 2025-05-15 00:40:10 BaseModelLoader.py: 34] Successfully parsed the model configuration file meta.json!
+INFO 2025-05-15 00:40:10 FaceAlignModelLoader.py: 35] Successfully loaded the face landmark model!
+INFO 2025-05-15 00:40:10 FaceRecModelLoader.py: 16] Start to analyze the face recognition model, model path: models, model category: face_recognition，model name: test
+INFO 2025-05-15 00:40:10 BaseModelLoader.py: 34] Successfully parsed the model configuration file meta.json!
+INFO 2025-05-15 00:40:10 FaceRecModelLoader.py: 31] Successfully loaded the face recognition model!
+INFO 2025-05-15 00:40:11 _internal.py: 97] 178.43.172.226 - - [15/May/2025 00:40:11] "POST /analyse_frame HTTP/1.1" 200 -

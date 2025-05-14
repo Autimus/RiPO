@@ -184,8 +184,8 @@
     <input type="file" id="videoInput" accept="video/*,image/*" class="button">
 
     <div class="buttons-panel">
-        <button id="send-frame-btn" onclick="sendVideoFetch(this)">Prześlij klatkę</button> <!-- FETCH -->
-        <button id="send-video-btn" onclick="sendVideoFetch(this)">Prześlij wideo</button>  <!-- FETCH -->
+        <button id="send-frame-btn" onclick="sendImageFetch()">Prześlij klatkę</button> <!-- FETCH -->
+        <button id="send-video-btn" onclick="sendVideoFetch()">Prześlij wideo</button>  <!-- FETCH -->
     </div>
 
     <div id="videoStatus" class="status-message"></div>
@@ -356,19 +356,18 @@
             });
     }
 
-    // Wyślij obraz lub wideo
-    function sendVideoFetch(node) {
+    // Wyślij obraz lub klatkę wideo
+    function sendImageFetch() {
         if (!uploadedMedia) return;
 
         const formData = new FormData();
+        updateStatus("videoStatus", "status-loading");
 
-        if (node === sendVideoBtn) {
-            // Przesyłanie całego pliku wideo
+        if (!isVideo) {
+            // Jeśli to zdjęcie – wyślij bezpośrednio
+            formData.append("image", uploadedMedia);
 
-            formData.append("video", uploadedMedia);
-            updateStatus("videoStatus", "status-loading");
-
-            fetch("http://156.17.227.92:5000/upload_video", {
+            fetch("http://156.17.227.92:5000/upload_image", {
                 method: "POST",
                 body: formData
             })
@@ -379,14 +378,16 @@
                 })
                 .catch(err => {
                     updateStatus("videoStatus", "status-error");
-                    console.error("Błąd przesyłania:", err);
+                    console.error("Błąd przesyłania obrazu:", err);
                 });
 
         } else {
-            // Przesyłanie pojedynczej klatki z wideo
-
+            // Jeśli to wideo – wyciągnij klatkę i wyślij
             const videoPlayer = document.getElementById("videoPlayer");
-            if (!videoPlayer) return;
+            if (!videoPlayer) {
+                updateStatus("videoStatus", "status-error");
+                return;
+            }
 
             const canvas = document.createElement("canvas");
             canvas.width = videoPlayer.videoWidth;
@@ -399,8 +400,6 @@
                 if (!blob) return;
 
                 formData.append("image", blob, "frame.jpg");
-
-                updateStatus("videoStatus", "status-loading");
 
                 fetch("http://156.17.227.92:5000/upload_image", {
                     method: "POST",
@@ -418,6 +417,33 @@
             }, "image/jpeg");
         }
     }
+
+    function sendVideoFetch() {
+        if (!uploadedMedia || !isVideo) {
+            alert("Wybierz plik wideo.");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append("video", uploadedMedia);
+
+        updateStatus("videoStatus", "status-loading");
+
+        fetch("http://156.17.227.92:5000/upload_video", {
+            method: "POST",
+            body: formData
+        })
+            .then(res => res.json())
+            .then(data => {
+                updateStatus("videoStatus", "status-success");
+                console.log(data);
+            })
+            .catch(err => {
+                updateStatus("videoStatus", "status-error");
+                console.error("Błąd przesyłania wideo:", err);
+            });
+    }
+
 
     // Analiza
     document.getElementById('analyse').addEventListener('click', function () {
